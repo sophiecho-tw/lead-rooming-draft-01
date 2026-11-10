@@ -1,0 +1,26 @@
+'use strict';
+const searchIsRoom=location.pathname.includes('room');
+const searchIsPre=location.pathname.includes('/pre-');
+const mainSearchId=searchIsRoom?'guest-search':'search';
+const currentSearch=()=>searchIsRoom?searchQuery:query;
+function setCurrentSearch(value){if(searchIsRoom)searchQuery=value;else query=value;}
+let searchComposing=false,searchLastValue=currentSearch(),searchOriginScroll=0;
+function mainSearch(el){return el instanceof HTMLInputElement&&el.id===mainSearchId;}
+function focusSearch(){document.getElementById(mainSearchId)?.focus({preventScroll:true});}
+const beforeSearchRender=render;
+render=function(){const active=mainSearch(document.activeElement)?document.activeElement:null;const cursor=active?.selectionStart;const prior=searchLastValue;const value=currentSearch();if(!searchTerms(prior).length&&searchTerms(value).length)searchOriginScroll=window.scrollY;beforeSearchRender();
+const phone=document.querySelector('.phone');if(!phone)return;
+if(searchIsRoom&&mode==='roll'&&!location.pathname.includes('trip-room')&&!document.getElementById(mainSearchId)){const tools=document.createElement('div');tools.className='floating-tools attendance-search';tools.innerHTML='<label class="float-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/></svg><input type="search" id="guest-search" aria-label="搜尋點名旅客、房號或備註"></label>';phone.append(tools)}
+if(searchIsRoom&&mode==='roll'&&searchTerms(value).length)phone.querySelectorAll('.room-check').forEach(el=>el.setAttribute('aria-label','本房搜尋結果整組點名'));const input=document.getElementById(mainSearchId);if(input){const label=searchIsRoom?(searchIsPre?'搜尋姓名、分組編號或備註':'搜尋姓名、房號或備註'):(searchIsPre?'搜尋姓名、訂單或備註':'搜尋姓名、訂單、組名或備註');input.placeholder=label;input.setAttribute('aria-label',label);input.setAttribute('enterkeyhint','search');input.autocomplete='off';input.spellcheck=false;input.value=value;const clear=document.createElement('button');clear.type='button';clear.className='search-clear';clear.dataset.searchAction='clear';clear.setAttribute('aria-label','清除搜尋');clear.textContent='×';clear.hidden=!value;input.parentElement.append(clear);}
+const main=phone.querySelector('main.rooms,main.waiting-list');if(main){main.querySelectorAll('.legacy-summary').forEach(el=>el.remove());const searching=searchTerms(value).length>0;if(searching){main.querySelector('.copy-suggestion')?.remove();const cards=[...main.querySelectorAll('article.room')];const people=cards.reduce((sum,card)=>sum+Number(card.dataset.searchCount||card.querySelectorAll('.guest-content[data-action="profile"]').length),0);main.querySelectorAll('.empty').forEach(el=>el.remove());const summary=document.createElement('p');summary.className='unified-search-summary';summary.setAttribute('role','status');summary.textContent=`搜尋結果 · ${cards.length} ${searchIsRoom?'間房':searchIsPre||view==='orders'?'筆訂單':'組'} · ${people} 位旅客`;if(!searchIsRoom&&typeof editMode!=='undefined'&&editMode)summary.textContent+='（儲存整份分組）';main.prepend(summary);if(!cards.length){const empty=document.createElement('div');empty.className='empty search-empty';empty.textContent='找不到符合的資料，請試試其他關鍵字。';main.append(empty)}}}
+if(active&&input){input.replaceWith(active);active.value=value;active.focus({preventScroll:true});if(cursor!==null)active.setSelectionRange(Math.min(cursor,value.length),Math.min(cursor,value.length));}
+searchLastValue=value;if(searchTerms(value).length&&value!==prior)window.scrollTo(0,0);else if(searchTerms(prior).length&&!searchTerms(value).length)window.scrollTo(0,searchOriginScroll);
+};
+function commitSearch(input){setCurrentSearch(input.value);if(!searchIsRoom&&searchTerms(input.value).length)collapsed.clear();render();}
+document.addEventListener('input',e=>{if(!mainSearch(e.target))return;e.stopImmediatePropagation();if(e.isComposing||searchComposing)return;commitSearch(e.target);},true);
+document.addEventListener('compositionstart',e=>{if(mainSearch(e.target))searchComposing=true;},true);
+document.addEventListener('compositionend',e=>{if(!mainSearch(e.target))return;searchComposing=false;commitSearch(e.target);},true);
+document.addEventListener('click',e=>{const button=e.target.closest('[data-search-action]');if(!button)return;e.preventDefault();e.stopImmediatePropagation();setCurrentSearch('');render();focusSearch();},true);
+document.addEventListener('keydown',e=>{if(!mainSearch(e.target)||e.isComposing||searchComposing)return;if(e.key==='Enter'){e.preventDefault();e.target.blur()}else if(e.key==='Escape'){e.preventDefault();setCurrentSearch('');render();focusSearch();}},true);
+const searchStyle=document.createElement('style');searchStyle.textContent='.search-clear{flex:none;width:26px;height:30px;padding:0;border:0;background:transparent;box-shadow:none;color:#888;font-size:22px;line-height:1}.search-clear[hidden]{display:none}.float-search input::-webkit-search-cancel-button{display:none}.unified-search-summary{margin:0 2px 4px;font-size:13px;color:#777;line-height:1.6}.attendance-search .float-search{flex:1}.phone.mode-roll{padding-bottom:90px}.room .detail-line{display:block;font-size:12px;line-height:1.7;color:#777;margin-top:5px}';document.head.append(searchStyle);
+render();
