@@ -1,5 +1,5 @@
 'use strict';
-const searchIsRoom=location.pathname.includes('room');
+const searchIsRoom=/\/(?:pre|trip)-room\//.test(location.pathname);
 const searchIsPre=location.pathname.includes('/pre-');
 const mainSearchId=searchIsRoom?'guest-search':'search';
 const currentSearch=()=>searchIsRoom?searchQuery:query;

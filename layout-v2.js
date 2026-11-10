@@ -1,4 +1,4 @@
-const layoutIsRoom=location.pathname.includes('room');
+const layoutIsRoom=/\/(?:pre|trip)-room\//.test(location.pathname);
 const layoutPrefsKey='layout-display-'+location.pathname;
 let layoutPrefs=JSON.parse(localStorage.getItem(layoutPrefsKey)||'null')||{fields:['note']};layoutPrefs.fields=layoutPrefs.fields||(layoutPrefs.travelerNote===false?[]:['note']);
 const settingsIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16M8 3v6M16 9v6M10 15v6"/></svg>';

@@ -1,5 +1,5 @@
 if(location.pathname.includes('/trip-')){
-const isRoomAttendance=location.pathname.includes('room');
+const isRoomAttendance=/\/(?:pre|trip)-room\//.test(location.pathname);
 document.addEventListener('change',e=>{const el=e.target;const id=isRoomAttendance?el.dataset.personCheck:el.dataset.attend;const batch=isRoomAttendance?el.dataset.roomCheck:el.dataset.group;if(!id&&!batch)return;const person=id?guests.find(p=>p.id===id):null;const message=person?person.name+(el.checked?'已到':'已取消到場'):(el.checked?'已標記本組旅客到齊':'已取消本組到場標記');queueMicrotask(()=>toast(message));},true);
 document.addEventListener('click',e=>{const el=e.target.closest('[data-action]');if(isRoomAttendance&&el?.dataset.action==='enter-roll')queueMicrotask(()=>toast('已進入點名模式'));},true);
 const feedbackStyle=document.createElement('style');feedbackStyle.textContent='#toast{bottom:calc(78px + env(safe-area-inset-bottom))}';document.head.append(feedbackStyle);
