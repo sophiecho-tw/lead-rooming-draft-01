@@ -1,0 +1,7 @@
+// Traveler display rules shared by pre-handover and in-trip group management.
+const groupDisplayOptions=[['passport','護照號碼、效期'],['pnr','PNR'],['note','內部備註'],['bus','巴士車號／座位'],['boarding','上下車地點'],['hotel','飯店／房型'],['identity','身分證字號'],['taiwan_permit','台胞證、效期'],['traveler_review','旅客詳'],['order_review','訂單詳'],['evisa','電說']];
+if(data.displayFieldsVersion!==2){data.fields=groupDisplayOptions.slice(0,6).map(([id])=>id);data.displayFieldsVersion=2;persist();}
+fields=function(){dialog='fields';fieldDraft=[...data.fields];sheet('顯示項目',`<div class="chips">${groupDisplayOptions.map(([id,label])=>`<label class="chip selectable"><input type="checkbox" data-field="${id}" ${fieldDraft.includes(id)?'checked':''}>${label}</label>`).join('')}</div>`,`<button class="button" data-action="close">取消</button><button class="button primary" data-action="save-fields">儲存</button>`);};
+additionalFields=function(p){return groupDisplayOptions.filter(([id])=>id!=='note'&&data.fields.includes(id)).map(([id,label])=>{let value=id==='pnr'?p.pnr:id==='passport'?[p.passport,p.passportExpiry].filter(Boolean).join('／'):id==='taiwan_permit'?[p.taiwanPermit,p.taiwanPermitExpiry].filter(Boolean).join('／'):p[id];return `<span class="detail-line">${label} · ${esc(value||'未提供')}</span>`}).join('');};
+const groupFixedStyle=document.createElement('style');groupFixedStyle.textContent='main.rooms .guest .person-fixed{display:block;font-size:12px;line-height:20px;color:#777;margin-top:2px}.chips .chip{min-height:42px}';document.head.append(groupFixedStyle);
+render();
