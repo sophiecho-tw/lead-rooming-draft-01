@@ -1,6 +1,6 @@
 const layoutIsRoom=/\/(?:pre|trip)-room\//.test(location.pathname);
 const layoutPrefsKey='layout-display-'+location.pathname;
-let layoutPrefs=JSON.parse(localStorage.getItem(layoutPrefsKey)||'null')||{fields:['note']};layoutPrefs.fields=layoutPrefs.fields||(layoutPrefs.travelerNote===false?[]:['note']);
+let layoutPrefs=JSON.parse(localStorage.getItem(layoutPrefsKey)||'null')||{fields:['passport','pnr','note','bus','boardingPoint','alightingPoint','hotel']};layoutPrefs.fields=(layoutPrefs.fields||(layoutPrefs.travelerNote===false?[]:['note'])).flatMap(id=>id==='boarding'?['boardingPoint','alightingPoint']:id==='order_review'?[]:[id]);
 const settingsIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16M8 3v6M16 9v6M10 15v6"/></svg>';
 function applyLayout(){const phone=document.querySelector('.phone'),nav=phone?.querySelector('.navbar');if(!nav)return;
 if(!layoutIsRoom)nav.querySelector('h1').textContent=typeof roll!=='undefined'&&roll?'旅客管理 / 點名':'旅客管理';
