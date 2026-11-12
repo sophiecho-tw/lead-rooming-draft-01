@@ -9,7 +9,7 @@ const beforeStyle=document.createElement('style');beforeStyle.textContent=`.phon
 function adaptBefore(){
 const phone=document.querySelector('.phone');if(!phone)return;phone.classList.toggle('pre-search-open',preSearchOpen);
 phone.querySelector('.navbar h1').textContent=preKind==='room'?'分房表':'團體管理';
-phone.querySelector('.nav-back')?.remove();
+// Keep the existing back control visible in handover views.
 const floating=phone.querySelector('.floating-tools'),search=floating?.querySelector('.float-search'),fields=floating?.querySelector('[data-action="fields"]');
 if(search){const tools=document.createElement('div');tools.className='review-tools';tools.append(search);const exit=document.createElement('button');exit.dataset.pre='close-search';exit.className='close-search';exit.textContent='取消';tools.append(exit);phone.append(tools);if(preKind==='room'){const input=search.querySelector('input');input.placeholder='搜尋旅客姓名';input.setAttribute('aria-label','搜尋旅客姓名')}}
 if(fields){fields.className='review-fields';phone.querySelector('.navbar').append(fields)}floating?.remove();
