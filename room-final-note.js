@@ -3,7 +3,7 @@ let roomFinalOpen=false;
 const roomFinalBaseRender=render;
 render=function(){
  roomFinalBaseRender();
- const list=document.querySelector('.phone.mode-view main.rooms, .phone.handover main.rooms');
+ const list=document.querySelector('.phone.mode-view main.rooms');
  if(!list)return;
  const panel=document.createElement('details');
  panel.className='room-final';
