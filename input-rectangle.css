@@ -1,0 +1,16 @@
+/* Consistent rectangular text-entry controls across all four views. */
+.float-search, .room-number-field, .search:has(input), .search-box:has(input) { border-radius: 4px !important; }
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="hidden"]), textarea { border-radius: 4px !important; }
+
+/* Match buttons to the rectangular input style. */
+button, [role="button"], .tabs button { border-radius: 4px !important; }
+
+/* Keep the tab strip and each tab rectangular. */
+.segments, .handover-tabs, [role="tablist"], [role="tab"] { border-radius: 4px !important; }
+
+/* The room suffix sits outside the editable field. */
+.room-number-field { width:auto !important; padding:0 !important; border:0 !important; background:transparent !important; gap:8px !important; }
+.room-number-field input { width:68px !important; height:38px; padding:0 9px; border:1px solid #c3c3c3 !important; background:#fff !important; }
+.room-number-field input:focus { border-color:#ff4056 !important; }
+
+.room-head .room-number-field > span { color: #fff !important; font-weight: 700; }
