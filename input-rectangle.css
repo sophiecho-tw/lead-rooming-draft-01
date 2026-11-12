@@ -1,12 +1,12 @@
 /* Consistent rectangular text-entry controls across all four views. */
-.float-search, .room-number-field, .search:has(input), .search-box:has(input) { border-radius: 4px !important; }
-input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="hidden"]), textarea { border-radius: 4px !important; }
+.float-search, .room-number-field, .search:has(input), .search-box:has(input) { border-radius: 9px !important; }
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="hidden"]), textarea { border-radius: 9px !important; }
 
 /* Match buttons to the rectangular input style. */
-button, [role="button"], .tabs button { border-radius: 4px !important; }
+button, [role="button"], .tabs button { border-radius: 9px !important; }
 
 /* Keep the tab strip and each tab rectangular. */
-.segments, .handover-tabs, [role="tablist"], [role="tab"] { border-radius: 4px !important; }
+.segments, .handover-tabs, [role="tablist"], [role="tab"] { border-radius: 9px !important; }
 
 /* The room suffix sits outside the editable field. */
 .room-number-field { width:auto !important; padding:0 !important; border:0 !important; background:transparent !important; gap:8px !important; }
@@ -17,3 +17,9 @@ button, [role="button"], .tabs button { border-radius: 4px !important; }
 
 /* Keep iOS from zooming the viewport when an editable field is focused. */
 @media (max-width: 767px) { input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="hidden"]), textarea, select { font-size: 16px !important; } }
+
+/* Apply the same corner radius to grouped cards and their sticky headers. */
+.room { border-radius: 9px !important; }
+.mode-view .room-head, .mode-view .room-head::after, .group-head, .group-head::after { border-radius: 9px 9px 0 0 !important; }
+.mode-view .guest-list, .mode-view .room-head + .guest-list { border-radius: 0 0 9px 9px !important; clip-path: inset(0 round 0 0 9px 9px) !important; }
+.room:has([aria-expanded="false"]) .group-head, .room:has([aria-expanded="false"]) .group-head::after { border-radius: 9px !important; }

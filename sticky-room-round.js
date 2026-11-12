@@ -1,6 +1,6 @@
 (() => {
   const style = document.createElement('style');
-  style.textContent = `.mode-view .room-head.is-stuck, .mode-view .room-head.is-stuck::after, .group-head.is-stuck, .group-head.is-stuck::after { border-radius: 15px !important; } .mode-view .room-head.is-stuck { box-shadow: 0 1px 0 #ddd; }`;
+  style.textContent = `.mode-view .room-head.is-stuck, .mode-view .room-head.is-stuck::after, .group-head.is-stuck, .group-head.is-stuck::after { border-radius: 9px !important; } .mode-view .room-head.is-stuck { box-shadow: 0 1px 0 #ddd; }`;
   document.head.append(style);
   let pending = false;
   function update() {
