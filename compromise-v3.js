@@ -16,6 +16,8 @@ const style=document.createElement('style');style.textContent=`
 .is-editing .floating-tools .float-roll[data-action="save-edit"]{width:100%!important;max-width:none!important;flex:1!important}
 `;document.head.append(style);
 function decorate(){
+if(!isGroup)document.querySelectorAll('.display-settings,.review-fields').forEach(b=>b.remove());
+
 if(isGroup&&!(trip&&roll)&&data.fields.includes('ageSummary')){const main=document.querySelector('main.rooms');if(main&&!main.querySelector('.v3-age-summary')){const bins=[['2Y','未滿2歲',0,2],['6Y','2-5歲',2,6],['12Y','6-12歲',6,13],['成人','13-64歲',13,65],['65Y','65歲以上',65,999]];const section=document.createElement('section');section.className='v3-age-summary';section.innerHTML='<div class="age-summary-heading"><strong>年齡統計</strong><span>共 <b>'+guests.length+'</b> 人</span></div><div class="age-summary-grid">'+bins.map(([label,range,min,max])=>{const n=guests.filter(p=>{const a=age(p);return a>=min&&a<max}).length;return '<div><small>'+range+'</small><span><strong class="'+(n?'has-count':'')+'">'+n+'</strong></span></div>'}).join('')+'</div>';main.prepend(section)}}
 
 if(location.pathname.includes('/pre-')){const footer=document.querySelector('.handover-actions');if(footer&&!footer.querySelector('.v3-handover-reminder')){const line=document.createElement('div');line.className='v3-handover-reminder';line.innerHTML='<span aria-hidden="true">ⓘ</span> 請務必仔細閱讀交班文件，完成交班作業！';footer.prepend(line)}}
