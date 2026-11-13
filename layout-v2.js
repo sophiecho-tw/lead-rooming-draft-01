@@ -9,7 +9,7 @@ let sub=null;if(date||viewButton){sub=document.createElement('div');sub.classNam
 if(!layoutIsRoom&&typeof editMode!=='undefined'&&editMode&&sub&&viewButton){const input=document.createElement('input');input.className='plan-name-input';input.setAttribute('aria-label','分組方案名稱');input.maxLength=40;input.value=planDraft.name;input.addEventListener('input',()=>{planDraft.name=input.value});viewButton.replaceWith(input)}
 const fields=phone.querySelector('[data-action="fields"]');if(fields){fields.className='display-settings';nav.append(fields)}
 if(layoutIsRoom){const settings=document.createElement('button');settings.className='display-settings';settings.dataset.layout='fields';settings.setAttribute('aria-label','調整顯示欄位');settings.innerHTML=settingsIcon;nav.append(settings);phone.classList.toggle('hide-traveler-note',!layoutPrefs.fields.includes('note'));phone.classList.toggle('hide-room-note',!layoutPrefs.fields.includes('note'))}
-if(!layoutIsRoom&&location.pathname.includes('pre-group')){const row=document.createElement('div');row.className='context-row';row.innerHTML='<span>依訂單分組</span>';phone.querySelector('.fixed-top').after(row)}
+if(!layoutIsRoom&&location.pathname.includes('pre-group')){const row=document.createElement('div');row.className='context-row';row.innerHTML='<button class="view-button" disabled aria-disabled="true"><span>依訂單分組</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 10 4 4 4-4"/></svg></button>';phone.querySelector('.fixed-top').after(row)}
 if(layoutIsRoom&&location.pathname.includes('pre-room'))phone.querySelectorAll('.room-head').forEach(el=>el.style.top=(phone.querySelector('.fixed-top').offsetHeight+12)+'px');else if(!layoutIsRoom)syncStickyTop();
 }
 const layoutRender=render;render=function(){layoutRender();applyLayout()};
@@ -38,3 +38,5 @@ if(layoutIsRoom){const dateArrowAlignment=document.createElement('style');dateAr
 
 if(layoutIsRoom){const c=document.createElement('style');c.textContent='.context-row .day-button svg{width:16px;height:16px;flex:none;stroke:currentColor;stroke-width:1.8;fill:none}';document.head.append(c)}
 if(!layoutIsRoom){const contextAlignment=document.createElement('style');contextAlignment.textContent='.fixed-top:has(+ .context-row)::after{display:none}.phone > .context-row{background:#fafafa}';document.head.append(contextAlignment)}
+
+const disabledViewStyle=document.createElement('style');disabledViewStyle.textContent='.context-row .view-button:disabled{color:#999!important;background:#f2f2f2!important;border-color:#ddd!important;opacity:1;cursor:default}.context-row .view-button:disabled svg{fill:none;stroke:currentColor;stroke-width:1.8}';document.head.append(disabledViewStyle);
