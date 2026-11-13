@@ -13,6 +13,7 @@ const style=document.createElement('style');style.textContent=`
 .v3-age-summary+article.room{margin-top:0!important}
 #overlay .profile-sticky-identity+.full-profile-card>.profile-section:first-child{border-top:0!important;margin-top:0!important}
 .v3-is-roll .inline-profile-open+.inline-section{border-top:0!important}
+.is-editing .floating-tools .float-roll[data-action="save-edit"]{width:100%!important;max-width:none!important;flex:1!important}
 `;document.head.append(style);
 function decorate(){
 if(isGroup&&!(trip&&roll)&&data.fields.includes('ageSummary')){const main=document.querySelector('main.rooms');if(main&&!main.querySelector('.v3-age-summary')){const bins=[['2Y','未滿2歲',0,2],['6Y','2-5歲',2,6],['12Y','6-12歲',6,13],['成人','13-64歲',13,65],['65Y','65歲以上',65,999]];const section=document.createElement('section');section.className='v3-age-summary';section.innerHTML='<div class="age-summary-heading"><strong>年齡統計</strong><span>共 <b>'+guests.length+'</b> 人</span></div><div class="age-summary-grid">'+bins.map(([label,range,min,max])=>{const n=guests.filter(p=>{const a=age(p);return a>=min&&a<max}).length;return '<div><small>'+range+'</small><span><strong class="'+(n?'has-count':'')+'">'+n+'</strong></span></div>'}).join('')+'</div>';main.prepend(section)}}
