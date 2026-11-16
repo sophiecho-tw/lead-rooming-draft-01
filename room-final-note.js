@@ -13,7 +13,7 @@ render=function(){
 function openRoomFinal(){
  const previous=document.activeElement;
  const backdrop=document.createElement('div');backdrop.className='room-final-backdrop';
- backdrop.innerHTML=`<section class="room-final-sheet" role="dialog" aria-modal="true" aria-labelledby="room-final-title"><div class="room-final-handle"></div><header><h2 id="room-final-title">分房 Final</h2><button class="room-final-close" type="button" aria-label="關閉">×</button></header><div class="room-final-content">示範團體 DEMO-TOUR<br>24位旅客＋1位領隊<br>12間雙床房＋1間單人房＝共13間<br>領隊：示範領隊 0900-000-000<br><br>示範注意事項：請確認住宿及餐食安排。<br><br>DEMO101　2026/11/03　19:00／22:00<br>DEMO102　2026/11/10　15:00／18:00</div></section>`;
+ backdrop.innerHTML=`<section class="room-final-sheet" role="dialog" aria-modal="true" aria-labelledby="room-final-title"><div class="room-final-handle"></div><header><h2 id="room-final-title">分房 Final</h2><button class="room-final-close" type="button" aria-label="關閉">×</button></header><div class="room-final-content">南歐文化探索八日（虛構行程）<br>24位旅客＋1位領隊<br>12間雙床房＋1間單人房＝共13間<br>領隊：方映竹 0900-000-000<br><br>示範注意事項：請確認住宿及餐食安排。<br><br>DEMO101　2026/11/03　19:00／22:00<br>DEMO102　2026/11/10　15:00／18:00</div></section>`;
  const close=()=>{backdrop.remove();document.removeEventListener('keydown',onKey);previous?.focus()};
  const onKey=e=>{if(e.key==='Escape')close()};
  backdrop.addEventListener('click',e=>{if(e.target===backdrop||e.target.closest('.room-final-close'))close()});
