@@ -17,6 +17,7 @@ const style=document.createElement('style');style.textContent=`
 .mode-view .navbar .header-signal{margin-left:auto!important}.date-popover .sheet-last-row{border-top:0!important;padding:0!important}.date-popover .sheet-last-row button{border-top:0!important;border-bottom:0!important}
 .v3-order-details{color:#242424;line-height:1.6;font-size:15px}.v3-order-details h3{font-size:17px;margin:0;padding:0 0 12px;border-bottom:1px solid #ddd}.v3-order-details section{padding:12px 0;border-bottom:1px solid #ddd}.v3-order-details section:last-child{border-bottom:0}.v3-order-details section>div{margin-bottom:10px}.v3-order-details p{margin:3px 0}.v3-order-details a{color:#2c9bd3;text-decoration:underline;font-weight:700}.v3-order-modal .modal-footer .button{width:100%;flex:1}
 .group-head>button:has(.order-info-icon){justify-content:flex-start!important;gap:6px!important}.group-head>button:has(.order-info-icon)>strong{flex:0 1 auto!important}.order-info-icon{flex:none!important}
+.phone.handover>main.handover-list{padding-top:20px!important}.v3-age-summary{position:relative;border:1px solid #ddd!important;box-sizing:border-box}
 `;document.head.append(style);
 function decorate(){
 if(location.pathname.includes('pre-group'))document.querySelectorAll('.phone>.context-row').forEach(row=>row.remove());
