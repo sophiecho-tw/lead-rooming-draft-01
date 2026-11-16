@@ -13,7 +13,7 @@ render=function(){
 function openRoomFinal(){
  const previous=document.activeElement;
  const backdrop=document.createElement('div');backdrop.className='room-final-backdrop';
- backdrop.innerHTML=`<section class="room-final-sheet" role="dialog" aria-modal="true" aria-labelledby="room-final-title"><div class="room-final-handle"></div><header><h2 id="room-final-title">分房 Final</h2><button class="room-final-close" type="button" aria-label="關閉">×</button></header><div class="room-final-content">26SVN12VNJ5 T 出團 客製越南 4 日<br>11/12 ～ 11/15<br>6TWN＋1TRP＋2SGL＝9 ROOMS<br>14ADT＋2CHD＋1TL＝17 PAX<br>TL：陳先生 0900-000-001<br>接機後補<br>VN571　2026/11/12　07:45／10:25　TPE／SGN<br>VN570　2026/11/15　16:45／21:10　SGN／TPE</div></section>`;
+ backdrop.innerHTML=`<section class="room-final-sheet" role="dialog" aria-modal="true" aria-labelledby="room-final-title"><div class="room-final-handle"></div><header><h2 id="room-final-title">分房 Final</h2><button class="room-final-close" type="button" aria-label="關閉">×</button></header><div class="room-final-content">示範團體 DEMO-TOUR<br>24位旅客＋1位領隊<br>12間雙床房＋1間單人房＝共13間<br>領隊：示範領隊 0900-000-000<br><br>示範注意事項：請確認住宿及餐食安排。<br><br>DEMO101　2026/11/03　19:00／22:00<br>DEMO102　2026/11/10　15:00／18:00</div></section>`;
  const close=()=>{backdrop.remove();document.removeEventListener('keydown',onKey);previous?.focus()};
  const onKey=e=>{if(e.key==='Escape')close()};
  backdrop.addEventListener('click',e=>{if(e.target===backdrop||e.target.closest('.room-final-close'))close()});
